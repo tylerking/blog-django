@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %} Article Details {% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block body %}
+
+  <h1>{{article.title}}</h1>
+  <span>Published: {{article.published}} by <i>{{article.author}}</i></span>
+  <br/>
+  {{article.desc}}
+
+{% endblock %}

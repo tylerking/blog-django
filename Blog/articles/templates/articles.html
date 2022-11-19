@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} Article List {% endblock %}
+
+{% block style %}
+  <style>
+    a {
+      color: black;
+      text-decoration: none;
+    }
+    a:hover {
+      color: gray;
+      text-decoration: underline;
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+
+  <h1>Article List</h1>
+  <p>A list of articles from database.</p>
+
+  {% for article in article_list%}
+    <span class="badge rounded-pill bg-success">Author: {{ article.author }}</span>
+    <h2><a href="{% url 'article_details' article.slug %}">{{article.title}}</a></h2>
+  {% endfor %}
+
+{% endblock %}
