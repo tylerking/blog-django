@@ -25,4 +25,6 @@
     <h2><a href="{% url 'article_details' article.slug %}">{{article.title}}</a></h2>
   {% endfor %}
 
+  {% include 'account/pagination.html' with page=article_list %}
+
 {% endblock %}

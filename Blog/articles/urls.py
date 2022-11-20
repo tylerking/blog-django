@@ -3,6 +3,7 @@ from .views import article_list, article_details, user_login, register, article_
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
 
 urlpatterns = [
+    path('', article_list, name = 'article_list'),
     path('articles/', article_list, name = 'article_list'),
     path('articles/<slug:slug>/', article_details, name = 'article_details'),
     path('add', article_form, name = 'article_form'),

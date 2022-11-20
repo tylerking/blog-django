@@ -1,4 +1,6 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from .models import Article
 from .forms import LoginForm, UserRegistration, ArticleRegistrationForm, ArticleUpdateForm
@@ -6,7 +8,15 @@ from .forms import LoginForm, UserRegistration, ArticleRegistrationForm, Article
 # Create your views here.
 def article_list(request):
     article_list = Article.objects.all().order_by('-published')
-    return render(request, 'articles.html', {'article_list':article_list})
+    paginator = Paginator(article_list, 3)
+    page = request.GET.get('page')
+    try:
+        articles = paginator.page(page)
+    except PageNotAnInteger:
+        articles = paginator.page(1)
+    except EmptyPage:
+        articles = paginator.page(paginator.num_pages)
+    return render(request, 'articles.html', {'article_list':articles, 'page':page})
 
 def article_details(request, slug):
     article = get_object_or_404(Article, slug=slug)
@@ -39,6 +49,7 @@ def register(request):
         user_form = UserRegistration()
     return render(request, 'account/register.html', {'user_form':user_form})
 
+@login_required
 def article_form(request):
     if request.method == "POST":
         article_form = ArticleRegistrationForm(request.POST)
@@ -51,6 +62,7 @@ def article_form(request):
         article_form = ArticleRegistrationForm()
     return render(request, 'account/add_article.html', {'article_form':article_form})
 
+@login_required
 def update_article(request, slug):
     article = get_object_or_404(Article, slug=slug)
     form = ArticleUpdateForm(request.POST or None, instance=article)
@@ -59,6 +71,7 @@ def update_article(request, slug):
         return redirect('article_list')
     return render(request, 'account/update.html', {'form':form})
 
+@login_required
 def delete_article(request, slug):
     article = get_object_or_404(Article, slug=slug)
     article.delete()
