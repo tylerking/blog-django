@@ -34,15 +34,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'articles',
+    'crispy_forms',
+    'crispy_bootstrap5',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms',
-    'crispy_bootstrap5',
-    'articles'
 ]
 
 MIDDLEWARE = [
@@ -116,6 +116,11 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+# custom login pages
+LOGIN_REDIRECT_URL = 'article_list'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
 
 
 # Static files (CSS, JavaScript, Images)
