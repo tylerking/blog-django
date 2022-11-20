@@ -9,8 +9,8 @@
   <p>Register with the form below</p>
   <form action="" method="post" novalidate>
 
-    {{user_form | crispy}}
     {% csrf_token %}
+    {{user_form | crispy}}
 
     <input type="submit" value="Create Account" class="btn btn-success">
 

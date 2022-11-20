@@ -12,5 +12,11 @@
   <span>Published: {{article.published}} by <i>{{article.author}}</i></span>
   <br/>
   {{article.desc}}
+  <br/>
+
+  {% if request.user == article.author %}
+  <a class="btn btn-success mx-3 mt-5" href="{% url 'update_article' article.slug %}">Update</a>
+  <a class="btn btn-danger mx-3 mt-5" href="{% url 'delete_article' article.slug %}">Delete</a>
+  {% endif %}
 
 {% endblock %}

@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
-{% block title %} Login 2 {% endblock %}
+{% block title %} Add Article {% endblock %}
 
 {% block body %}
 
-  <h1>Login</h1>
-  <p>Login with the form below</p>
+  <h1>Add Article</h1>
+  <p>Add a new article below</p>
   <form action="" method="post" novalidate>
 
     {% csrf_token %}
-    {{form.as_p}}
+    {{article_form | crispy}}
 
     <input type="submit" value="Login" class="btn btn-success">
 
